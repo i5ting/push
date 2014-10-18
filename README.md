@@ -1,29 +1,54 @@
-# Push
+QBasePush
+=========
 
-## hadoop-docker
+## tech stack
 
-https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/
-
-
-### Start a container
-
-In order to use the Docker image you have just build or pulled use:
-
-	docker run -i -t sequenceiq/hadoop-docker:2.5.1 /etc/bootstrap.sh -bash
-	
-### hadoop config here
-
-https://github.com/sequenceiq/hadoop-docker
+- express 
+- apn
 
 
+## features
 
-### Testing
 
-You can run one of the stock examples:
+### 定时推送		
+http://127.0.0.1:7000/api/v0.1.0/tasks
 
-	cd $HADOOP_PREFIX
-	# run the mapreduce
-	bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.5.1.jar grep input output 'dfs[a-z.]+'
+post
 
-	# check the output
-	bin/hdfs dfs -cat output/*
+x-www-form-urlencoded
+
+参数
+
+- time = 2014-10-17 20:43:44
+- desc = desc
+- callback_url = http://127.0.0.1:3000/api/v0.1.0/push/api
+- data = eyJ0b2tlbiI6IkIxNTA0RDk5RjBDMERCODA0ODcwOUVDNThCQUNENEExMDU0Q0IzMzFDNTc2MjdBMDQyRTcyQ0UxREZDNjg3M0YiLCJhbGVydCI6Iui
+
+说明：
+
+data是对象，转成string，然后base64获得的。具体算法如下：
+
+```
+		var d = { 	token:'B1504D99F0C0DB8048709EC58BACD4A1054CB331C57627A042E72CE1DFC6873F', 	alert:'这是我的消息,你妹啊1211221', 	payload:{     "status": {         "dfsdsf": 0,         "msg": "success"     } }, 	badge:'1' }
+		//JSON.stringify(d) = {"token":"B1504D99F0C0DB8048709EC58BACD4A1054CB331C57627A042E72CE1DFC6873F","alert":"这是我的消息,你妹啊1211221","payload":{"status":{"dfsdsf":0,"msg":"success"}},"badge":"1"}
+
+		var a = new Buffer(JSON.stringify(d)).toString('base64');
+		// a= eyJ0b2tlbiI6IkIxNTA0RDk5RjBDMERCODA0ODcwOUVDNThCQUNENEExMDU0Q0IzMzFDNTc2MjdBMDQyRTcyQ0UxREZDNjg3M0YiLCJhbGVydCI6Iui/meaYr+aIkeeahOa2iOaBryzkvaDlprnllYoxMjExMjIxIiwicGF5bG9hZCI6eyJzdGF0dXMiOnsiZGZzZHNmIjowLCJtc2ciOiJzdWNjZXNzIn19LCJiYWRnZSI6IjEifQ==
+```
+
+### 实时推送
+
+
+http://127.0.0.1:3000/api/v0.1.0/push
+
+x-www-form-urlencoded
+
+参数
+
+- token = B1504D99F0C0DB8048709EC58BACD4A1054CB331C57627A042E72CE1DFC6873F
+- alert = 这是我的消息,你妹啊1211221
+- payload = {     "status": {         "dfsdsf": 0,         "msg": "success"     } }
+- badge = 0
+
+
+
