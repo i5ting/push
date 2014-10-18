@@ -4,10 +4,10 @@ QBasePush
 ## start
 
 ```
- cd app
- npm install
- npm start
+./start.sh
 ```
+
+使用3453端口
 
 ## tech stack
 
@@ -29,7 +29,7 @@ x-www-form-urlencoded
 
 - time = 2014-10-17 20:43:44
 - desc = desc
-- callback_url = http://127.0.0.1:3000/api/v0.1.0/push/api
+- callback_url = http://127.0.0.1:3453/api/v0.1.0/push/api
 - data = eyJ0b2tlbiI6IkIxNTA0RDk5RjBDMERCODA0ODcwOUVDNThCQUNENEExMDU0Q0IzMzFDNTc2MjdBMDQyRTcyQ0UxREZDNjg3M0YiLCJhbGVydCI6Iui
 
 说明：
@@ -47,7 +47,7 @@ data是对象，转成string，然后base64获得的。具体算法如下：
 ### 实时推送
 
 
-http://127.0.0.1:3000/api/v0.1.0/push
+http://127.0.0.1:3453/api/v0.1.0/push
 
 x-www-form-urlencoded
 
