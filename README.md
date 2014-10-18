@@ -1,6 +1,14 @@
 QBasePush
 =========
 
+## start
+
+```
+ cd app
+ npm install
+ npm start
+```
+
 ## tech stack
 
 - express 
