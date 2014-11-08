@@ -19,7 +19,7 @@ QBasePush
 
 
 ### 定时推送		
-http://127.0.0.1:7000/api/v0.1.0/tasks
+http://42.62.8.172:7000/api/v0.1.0/tasks
 
 post
 
@@ -47,7 +47,7 @@ data是对象，转成string，然后base64获得的。具体算法如下：
 ### 实时推送
 
 
-http://127.0.0.1:3453/api/v0.1.0/push
+http://42.62.8.172:3453/api/v0.1.0/push
 
 x-www-form-urlencoded
 
@@ -59,4 +59,36 @@ x-www-form-urlencoded
 - badge = 0
 
 
+## 登陆
 
+ssh deploy@42.62.8.172	
+
+密码是snug
+## 上传pem文件
+
+scp pem_test.zip deploy@42.62.8.172:~
+
+## 修改推送路径
+
+vi /home/deploy/workspace/push/app/routes/v0.1.0/apns_push.js 
+
+```
+	/*
+	如何去掉pem的密码
+	➜  conf git:(master) ✗   openssl rsa -in key.pem -out keyout.pem
+	Enter pass phrase for key.pem:
+	writing RSA key
+	*/
+	var options = {
+	  cert: '/home/deploy/pem_test/node/cert.pem',
+	  key:  '/home/deploy/pem_test/node/key.pem'
+	};
+```
+
+## 测试
+
+安装上面的说明就可以
+
+如果没有接口调用，可以使用postman进行模拟。
+
+注意苹果打包证书是否已替换
